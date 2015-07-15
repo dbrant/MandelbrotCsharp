@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 namespace Mandelbrot.BigIntegerRenderer
 {
     /// <summary>
-    /// Arbitrary precision decimal.
-    /// All operations are exact, except for division. Division never determines more digits than the given precision.
-    /// Based on http://stackoverflow.com/a/4524254
-    /// Author: Jan Christoph Bernack (contact: jc.bernack at googlemail.com)
+    /// Adapted from: http://stackoverflow.com/a/4524254
     /// </summary>
     public struct BigDecimal : IComparable, IComparable<BigDecimal>
     {
@@ -24,7 +21,7 @@ namespace Mandelbrot.BigIntegerRenderer
         /// Sets the maximum precision of division operations.
         /// If AlwaysTruncate is set to true all operations are affected.
         /// </summary>
-        public static int Precision = 10;
+        public static int Precision = 16;
 
         public BigInteger Mantissa { get; set; }
         public int Exponent { get; set; }
@@ -34,8 +31,6 @@ namespace Mandelbrot.BigIntegerRenderer
         {
             Mantissa = mantissa;
             Exponent = exponent;
-            
-            //Normalize();
             
             if (AlwaysTruncate)
             {
@@ -72,9 +67,6 @@ namespace Mandelbrot.BigIntegerRenderer
         /// </summary>
         public void Truncate()
         {
-            // save some time because the number of digits is not needed to remove trailing zeros
-            //Normalize();
-
             int numDigits = NumberOfDigits(Mantissa);
             if (numDigits > Precision)
             {
@@ -88,7 +80,6 @@ namespace Mandelbrot.BigIntegerRenderer
         {
             // do not count the sign
             return (int)BigInteger.Log10(BigInteger.Abs(value)) + 1;
-            //return (value * value.Sign).ToString().Length;
         }
 
         #region Conversions

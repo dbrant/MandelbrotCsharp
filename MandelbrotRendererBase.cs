@@ -41,7 +41,34 @@ namespace Mandelbrot
             screenHeight = height;
         }
 
-        public abstract void Draw(int numIterations, int numThreads);
+        public void Draw(int numIterations, int numThreads)
+        {
+            this.numIterations = numIterations;
+            this.numThreads = numThreads;
+
+            int yInc = screenHeight / numThreads;
+            int yPos = 0;
+            for (int i = 0; i < numThreads; i++)
+            {
+                var thread = new Thread(new ParameterizedThreadStart(DrawInternal));
+                currentThreads.Add(thread);
+                var p = new MandelThreadParams();
+                p.parentForm = parentContext;
+                p.startX = 0;
+                p.startY = yPos;
+                p.startWidth = screenWidth;
+                if (i == numThreads - 1)
+                {
+                    p.startHeight = screenHeight - yPos;
+                }
+                else
+                {
+                    p.startHeight = yInc;
+                }
+                thread.Start(p);
+                yPos += yInc;
+            }
+        }
 
         public void TerminateThreads()
         {
@@ -56,6 +83,8 @@ namespace Mandelbrot
             public Form parentForm;
             public int startX, startY, startWidth, startHeight;
         }
+
+        protected abstract void DrawInternal(object threadParams);
 
         public abstract void Move(int moveX, int moveY);
 

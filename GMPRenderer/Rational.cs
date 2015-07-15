@@ -338,6 +338,20 @@ namespace Gnu.MP
             return Pow(this, j);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            return obj is Rational && (this == (Rational)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return _pointer.GetHashCode();
+        }
+
 
         #region DLL imports
 

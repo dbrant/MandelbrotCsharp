@@ -166,7 +166,6 @@ namespace Mandelbrot.SimpleBigIntRenderer
             }
             else if (Exponent < value.Exponent)
             {
-                //mantissa.MulByPow10(Exponent - value.Exponent);
                 mantissa.Add(AlignExponent(value, this));
             }
             else

@@ -35,19 +35,16 @@ namespace Mandelbrot
             //UInt32[] colorPalette = ColorScheme.CreateColorScheme(new UInt32[] { 0xffff0000, 0xff00ff00, 0xff0000ff, 0xffff00ff, 0xffff0000 }, colorPaletteSize);
             UInt32[] colorPalette = ColorScheme.CreateColorScheme(new Color[] { Color.BurlyWood, Color.Chocolate, Color.Tan, Color.Sienna, Color.LightSteelBlue, Color.BurlyWood }, colorPaletteSize);
 
-
             rendererList = new List<MandelbrotRendererBase>();
             rendererList.Add(new FloatRenderer.FloatRenderer(this, colorPalette, colorPaletteSize));
             rendererList.Add(new GMPRenderer.GMPRenderer(this, colorPalette, colorPaletteSize));
             rendererList.Add(new BigIntegerRenderer.BigIntegerRenderer(this, colorPalette, colorPaletteSize));
             rendererList.Add(new SimpleBigIntRenderer.SimpleBigIntRenderer(this, colorPalette, colorPaletteSize));
             currentRenderer = rendererList[0];
-
             foreach (var r in rendererList)
             {
                 ResetInitialParams(r);
             }
-
 
             this.DoubleBuffered = true;
             this.MouseWheel += Form1_MouseWheel;

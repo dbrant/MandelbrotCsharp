@@ -625,6 +625,20 @@ namespace Gnu.MP
             return new Real(i);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            return obj is Real && (this == (Real)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return _pointer.GetHashCode();
+        }
+
 
         #region DLL imports
 
