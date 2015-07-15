@@ -13,6 +13,7 @@ namespace Mandelbrot.GMPRenderer
         public GMPRenderer(Form parentContext, UInt32[] colorPalette, int colorPaletteSize)
             : base(parentContext, colorPalette, colorPaletteSize)
         {
+            Real.DefaultPrecision = 128;
         }
 
         public override string ToString()
@@ -113,12 +114,15 @@ namespace Mandelbrot.GMPRenderer
             }));
         }
 
+        public override string GetCoordinateStr(int mouseX, int mouseY)
+        {
+            Real xpos = xmin + ((Real)mouseX * (xmax - xmin) / (Real)screenWidth);
+            Real ypos = ymin + ((Real)mouseY * (ymax - ymin) / (Real)screenHeight);
+            return xpos.ToString() + ", " + ypos.ToString();
+        }
 
         public override void Move(int moveX, int moveY)
         {
-            //BigDecimal xpos = xmin + ((BigDecimal)e.X * (xmax - xmin) / (BigDecimal)screenWidth);
-            //BigDecimal ypos = ymin + ((BigDecimal)e.Y * (ymax - ymin) / (BigDecimal)screenHeight);
-            //controlForm.txtInfo.Text = xpos.ToString() + ", " + ypos.ToString();
             TerminateThreads();
             xorigin -= (Real)(moveX) * (xmax - xmin) / (Real)screenWidth;
             yorigin -= (Real)(moveY) * (ymax - ymin) / (Real)screenHeight;

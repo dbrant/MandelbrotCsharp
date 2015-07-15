@@ -118,12 +118,15 @@ namespace Mandelbrot.FloatRenderer
         }
 
 
+        public override string GetCoordinateStr(int mouseX, int mouseY)
+        {
+            double xpos = xmin + ((double)mouseX * (xmax - xmin) / (double)screenWidth);
+            double ypos = ymin + ((double)mouseY * (ymax - ymin) / (double)screenHeight);
+            return xpos.ToString() + ", " + ypos.ToString();
+        }
 
         public override void Move(int moveX, int moveY)
         {
-            //BigDecimal xpos = xmin + ((BigDecimal)e.X * (xmax - xmin) / (BigDecimal)screenWidth);
-            //BigDecimal ypos = ymin + ((BigDecimal)e.Y * (ymax - ymin) / (BigDecimal)screenHeight);
-            //controlForm.txtInfo.Text = xpos.ToString() + ", " + ypos.ToString();
             TerminateThreads();
             xorigin -= (double)(moveX) * (xmax - xmin) / (double)screenWidth;
             yorigin -= (double)(moveY) * (ymax - ymin) / (double)screenHeight;

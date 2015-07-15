@@ -60,5 +60,8 @@ namespace Mandelbrot
         public abstract void Move(int moveX, int moveY);
 
         public abstract void Zoom(int posX, int posY, double factor);
+
+        public abstract string GetCoordinateStr(int mouseX, int mouseY);
+
     }
 }

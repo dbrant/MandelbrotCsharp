@@ -144,14 +144,15 @@ namespace Mandelbrot.BigIntegerRenderer
             }));
         }
 
-
+        public override string GetCoordinateStr(int mouseX, int mouseY)
+        {
+            BigDecimal xpos = xmin + ((BigDecimal)mouseX * (xmax - xmin) / (BigDecimal)screenWidth);
+            BigDecimal ypos = ymin + ((BigDecimal)mouseY * (ymax - ymin) / (BigDecimal)screenHeight);
+            return xpos.ToString() + ", " + ypos.ToString();
+        }
 
         public override void Move(int moveX, int moveY)
         {
-            //BigDecimal xpos = xmin + ((BigDecimal)e.X * (xmax - xmin) / (BigDecimal)screenWidth);
-            //BigDecimal ypos = ymin + ((BigDecimal)e.Y * (ymax - ymin) / (BigDecimal)screenHeight);
-            //controlForm.txtInfo.Text = xpos.ToString() + ", " + ypos.ToString();
-
             TerminateThreads();
             xorigin -= (BigDecimal)(moveX) * (xmax - xmin) / (BigDecimal)screenWidth;
             yorigin -= (BigDecimal)(moveY) * (ymax - ymin) / (BigDecimal)screenHeight;

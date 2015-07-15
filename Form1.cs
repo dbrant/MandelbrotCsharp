@@ -140,7 +140,7 @@ namespace Mandelbrot
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            //controlForm.txtInfo.Text = xpos.ToString() + ", " + ypos.ToString();
+            controlForm.txtInfo.Text = currentRenderer.GetCoordinateStr(e.X, e.Y);
             if (!moving) { return; }
             currentRenderer.Move(e.X - moveX0, e.Y - moveY0);
             moveX0 = e.X;
