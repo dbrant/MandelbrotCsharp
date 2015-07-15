@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Mandelbrot
 {
@@ -44,6 +45,21 @@ namespace Mandelbrot
                 cCounter--;
             }
             return colors;
+        }
+
+        public static UInt32[] CreateColorScheme(Color[] colorArray, int numElements)
+        {
+            UInt32[] colors = new UInt32[colorArray.Length];
+            UInt32 r, g, b;
+            for (int i = 0; i < colorArray.Length; i++)
+            {
+                colors[i] = (UInt32)colorArray[i].ToArgb();
+                b = colors[i] & 0xff;
+                g = (colors[i] & 0xff00) >> 8;
+                r = (colors[i] & 0xff0000) >> 16;
+                colors[i] = 0xff000000 | (b << 16) | (g << 8) | r;
+            }
+            return CreateColorScheme(colors, numElements);
         }
 
     }

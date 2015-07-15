@@ -32,7 +32,8 @@ namespace Mandelbrot
             bmpBits = new UInt32[0];
 
             int colorPaletteSize = 1024;
-            UInt32[] colorPalette = ColorScheme.CreateColorScheme(new UInt32[] { 0xffff0000, 0xff00ff00, 0xff0000ff, 0xffff00ff, 0xffff0000 }, colorPaletteSize);
+            //UInt32[] colorPalette = ColorScheme.CreateColorScheme(new UInt32[] { 0xffff0000, 0xff00ff00, 0xff0000ff, 0xffff00ff, 0xffff0000 }, colorPaletteSize);
+            UInt32[] colorPalette = ColorScheme.CreateColorScheme(new Color[] { Color.BurlyWood, Color.Chocolate, Color.Tan, Color.Sienna, Color.LightSteelBlue, Color.BurlyWood }, colorPaletteSize);
 
 
             rendererList = new List<MandelbrotRendererBase>();
