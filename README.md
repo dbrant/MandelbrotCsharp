@@ -1,7 +1,7 @@
 # MandelbrotCsharp
 High(ish)-performace Mandelbrot implementation in C#.
 
-Copyright 2013-2016 Dmitry Brant
+Copyright 2013-2020 Dmitry Brant
 
 http://dmitrybrant.com
 
