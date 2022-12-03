@@ -35,11 +35,13 @@ namespace Mandelbrot
             //UInt32[] colorPalette = ColorScheme.CreateColorScheme(new UInt32[] { 0xffff0000, 0xff00ff00, 0xff0000ff, 0xffff00ff, 0xffff0000 }, colorPaletteSize);
             UInt32[] colorPalette = ColorScheme.CreateColorScheme(new Color[] { Color.BurlyWood, Color.Chocolate, Color.Tan, Color.Sienna, Color.LightSteelBlue, Color.BurlyWood }, colorPaletteSize);
 
-            rendererList = new List<MandelbrotRendererBase>();
-            rendererList.Add(new FloatRenderer.FloatRenderer(this, colorPalette, colorPaletteSize));
-            rendererList.Add(new GMPRenderer.GMPRenderer(this, colorPalette, colorPaletteSize));
-            rendererList.Add(new BigIntegerRenderer.BigIntegerRenderer(this, colorPalette, colorPaletteSize));
-            rendererList.Add(new SimpleBigIntRenderer.SimpleBigIntRenderer(this, colorPalette, colorPaletteSize));
+            rendererList = new List<MandelbrotRendererBase>
+            {
+                new FloatRenderer.FloatRenderer(this, colorPalette, colorPaletteSize),
+                //new GMPRenderer.GMPRenderer(this, colorPalette, colorPaletteSize),
+                new BigIntegerRenderer.BigIntegerRenderer(this, colorPalette, colorPaletteSize),
+                new SimpleBigIntRenderer.SimpleBigIntRenderer(this, colorPalette, colorPaletteSize)
+            };
             currentRenderer = rendererList[0];
             foreach (var r in rendererList)
             {
@@ -72,6 +74,11 @@ namespace Mandelbrot
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
+            if (currentRenderer == null)
+            {
+                return;
+            }
+
             currentRenderer.TerminateThreads();
 
             int screenWidth = this.ClientSize.Width;
@@ -87,7 +94,7 @@ namespace Mandelbrot
                 gcHandle = GCHandle.Alloc(bmpBits, GCHandleType.Pinned);
             }
 
-            if (bmp != null) { bmp.Dispose(); }
+            bmp?.Dispose();
             bmp = new Bitmap(screenWidth, screenHeight, screenWidth * 4, PixelFormat.Format32bppArgb, gcHandle.AddrOfPinnedObject());
 
             currentRenderer.UpdateBitmapBits(bmpBits);
