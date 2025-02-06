@@ -8,7 +8,7 @@ namespace Mandelbrot.BigIntegerRenderer
         private BigDecimal xorigin, yorigin, xextent;
         private BigDecimal xmin, xmax, ymin, ymax;
 
-        public BigIntegerRenderer(Form parentContext, UInt32[] colorPalette, int colorPaletteSize)
+        public BigIntegerRenderer(Form parentContext, ulong[] colorPalette, int colorPaletteSize)
             : base(parentContext, colorPalette, colorPaletteSize)
         {
         }
@@ -97,7 +97,7 @@ namespace Mandelbrot.BigIntegerRenderer
 
                     if (iteration >= numIterations)
                     {
-                        bitmapBits[py * screenWidth + px] = 0xFF000000;
+                        bitmapBits[py * screenWidth + px] = 0x1fff000000000000;
                     }
                     else
                     {

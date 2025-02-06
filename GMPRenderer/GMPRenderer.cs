@@ -9,7 +9,7 @@ namespace Mandelbrot.GMPRenderer
         private Real xorigin, yorigin, xextent;
         private Real xmin, xmax, ymin, ymax;
 
-        public GMPRenderer(Form parentContext, UInt32[] colorPalette, int colorPaletteSize)
+        public GMPRenderer(Form parentContext, ulong[] colorPalette, int colorPaletteSize)
             : base(parentContext, colorPalette, colorPaletteSize)
         {
             Real.DefaultPrecision = 128;
@@ -67,7 +67,7 @@ namespace Mandelbrot.GMPRenderer
 
                     if (iteration >= numIterations)
                     {
-                        bitmapBits[py * screenWidth + px] = 0xFF000000;
+                        bitmapBits[py * screenWidth + px] = 0x1fff000000000000;
                     }
                     else
                     {

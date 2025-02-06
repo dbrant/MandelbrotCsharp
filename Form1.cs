@@ -18,7 +18,7 @@ namespace Mandelbrot
         public List<MandelbrotRendererBase> rendererList { get; private set; }
         private MandelbrotRendererBase currentRenderer;
 
-        private UInt32[] bmpBits;
+        private ulong[] bmpBits;
         private GCHandle gcHandle;
         private Bitmap bmp = null;
 
@@ -29,11 +29,11 @@ namespace Mandelbrot
         {
             InitializeComponent();
             Text = Application.ProductName;
-            bmpBits = new UInt32[0];
+            bmpBits = new ulong[0];
 
-            int colorPaletteSize = 1024;
-            //UInt32[] colorPalette = ColorScheme.CreateColorScheme(new UInt32[] { 0xffff0000, 0xff00ff00, 0xff0000ff, 0xffff00ff, 0xffff0000 }, colorPaletteSize);
-            UInt32[] colorPalette = ColorScheme.CreateColorScheme(new Color[] { Color.BurlyWood, Color.Chocolate, Color.Tan, Color.Sienna, Color.LightSteelBlue, Color.BurlyWood }, colorPaletteSize);
+            int colorPaletteSize = 0x10000;
+            ulong[] colorPalette = ColorScheme.CreateColorScheme(new Color[] { Color.IndianRed, Color.CornflowerBlue, Color.Tan, Color.ForestGreen, Color.LightSteelBlue, Color.BurlyWood }, colorPaletteSize);
+            //ulong[] colorPalette = ColorScheme.CreateColorScheme(new Color[] { Color.Black, Color.White, Color.Black }, colorPaletteSize);
 
             rendererList = new List<MandelbrotRendererBase>
             {
@@ -90,12 +90,12 @@ namespace Mandelbrot
             if (bufferLength > bmpBits.Length)
             {
                 FreeStuff();
-                bmpBits = new UInt32[bufferLength * 4];
+                bmpBits = new ulong[bufferLength * 4];
                 gcHandle = GCHandle.Alloc(bmpBits, GCHandleType.Pinned);
             }
 
             bmp?.Dispose();
-            bmp = new Bitmap(screenWidth, screenHeight, screenWidth * 4, PixelFormat.Format32bppArgb, gcHandle.AddrOfPinnedObject());
+            bmp = new Bitmap(screenWidth, screenHeight, screenWidth * 8, PixelFormat.Format64bppArgb, gcHandle.AddrOfPinnedObject());
 
             currentRenderer.UpdateBitmapBits(bmpBits);
             currentRenderer.UpdateScreenDimensions(screenWidth, screenHeight);

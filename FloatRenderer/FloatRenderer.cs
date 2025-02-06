@@ -8,7 +8,7 @@ namespace Mandelbrot.FloatRenderer
         private double xorigin, yorigin, xextent;
         private double xmin, xmax, ymin, ymax;
 
-        public FloatRenderer(Form parentContext, UInt32[] colorPalette, int colorPaletteSize)
+        public FloatRenderer(Form parentContext, ulong[] colorPalette, int colorPaletteSize)
             : base(parentContext, colorPalette, colorPaletteSize)
         {
         }
@@ -70,7 +70,7 @@ namespace Mandelbrot.FloatRenderer
 
                     if (iteration >= numIterations)
                     {
-                        bitmapBits[py * screenWidth + px] = 0xFF000000;
+                        bitmapBits[py * screenWidth + px] = 0x1fff000000000000;
                     }
                     else
                     {

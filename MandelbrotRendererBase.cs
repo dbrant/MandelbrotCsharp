@@ -8,8 +8,8 @@ namespace Mandelbrot
     public abstract class MandelbrotRendererBase
     {
         protected Form parentContext;
-        protected UInt32[] bitmapBits;
-        protected UInt32[] colorPalette;
+        protected ulong[] bitmapBits;
+        protected ulong[] colorPalette;
         protected int colorPaletteSize;
 
         protected int numIterations;
@@ -20,7 +20,7 @@ namespace Mandelbrot
         protected bool terminateThreads = false;
 
 
-        public MandelbrotRendererBase(Form parentContext, UInt32[] colorPalette, int colorPaletteSize)
+        public MandelbrotRendererBase(Form parentContext, ulong[] colorPalette, int colorPaletteSize)
         {
             this.parentContext = parentContext;
             this.colorPalette = colorPalette;
@@ -30,7 +30,7 @@ namespace Mandelbrot
 
         public abstract void SetInitialParams(double xorigin, double yorigin, double xextent);
 
-        public void UpdateBitmapBits(UInt32[] bitmapBits)
+        public void UpdateBitmapBits(ulong[] bitmapBits)
         {
             this.bitmapBits = bitmapBits;
         }
